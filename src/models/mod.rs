@@ -13,16 +13,4 @@ impl Room {
             bookable: bookable,
         }
     }
-
-    pub fn id(&self) -> i32 {
-        self.id
-    }
-
-    pub fn name(&self) -> &String {
-        &self.name
-    }
-
-    pub fn is_bookable(&self) -> bool {
-        self.bookable
-    }
 }

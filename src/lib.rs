@@ -1,3 +1,6 @@
+extern crate chrono;
+#[macro_use]
+extern crate failure;
 extern crate fern;
 extern crate futures;
 extern crate futures_state_stream;
@@ -11,7 +14,6 @@ extern crate log;
 extern crate serde;
 #[macro_use]
 extern crate serde_derive;
-extern crate tokio_core;
 
 mod handlers;
 mod models;

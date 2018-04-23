@@ -8,7 +8,7 @@ use gotham_middleware_postgres::PostgresMiddleware;
 use gotham_rest::ResourceRouterBuilder;
 use log::{self, LevelFilter};
 
-use handlers::resources::Rooms;
+use handlers::resources::{Bookings, Rooms};
 
 pub struct BookingWebService {
     addr: &'static str,
@@ -46,6 +46,7 @@ impl BookingWebService {
         let (chain, pipelines) = single_pipeline(new_pipeline().add(pg_mw).build());
 
         build_router(chain, pipelines, |route| {
+            route.resource::<Bookings>("/bookings");
             route.resource::<Rooms>("/rooms");
         })
     }
