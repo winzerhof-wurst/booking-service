@@ -1,0 +1,12 @@
+[package]
+name = "booking-service"
+version = "0.1.0"
+authors = ["Christoph Wurst <christoph@winzerhof-wurst.at>"]
+
+[dependencies]
+fern = "0.5.5"
+futures = "0.1"
+gotham = "0.2"
+gotham-rest = { git = "https://github.com/ChristophWurst/gotham-rest.git" }
+gotham_serde_json_body_parser = "0.2.0"
+log = "0.4"
