@@ -2,10 +2,9 @@ use std::io;
 
 use fern;
 use gotham;
-use gotham::router::Router;
-use gotham::router::builder::*;
-use gotham::pipeline::new_pipeline;
-use gotham::pipeline::single::single_pipeline;
+use gotham::router::{Router, builder::*};
+use gotham::pipeline::{new_pipeline, single::single_pipeline};
+use gotham_middleware_postgres::PostgresMiddleware;
 use gotham_rest::ResourceRouterBuilder;
 use log::{self, LevelFilter};
 
@@ -13,12 +12,14 @@ use handlers::resources::Rooms;
 
 pub struct BookingWebService {
     addr: &'static str,
+    database_url: String,
 }
 
 impl BookingWebService {
-    pub fn new(addr: &'static str) -> Self {
+    pub fn new(addr: &'static str, database_url: String) -> Self {
         BookingWebService {
-            addr: addr
+            addr: addr,
+            database_url: database_url,
         }
     }
 
@@ -40,7 +41,8 @@ impl BookingWebService {
     }
 
     fn router(&self) -> Router {
-        let (chain, pipelines) = single_pipeline(new_pipeline().build());
+        let pg_mw = PostgresMiddleware::new(self.database_url.as_str());
+        let (chain, pipelines) = single_pipeline(new_pipeline().add(pg_mw).build());
 
         build_router(chain, pipelines, |route| {
             route.resource::<Rooms>("/rooms");

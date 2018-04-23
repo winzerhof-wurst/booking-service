@@ -6,7 +6,13 @@ authors = ["Christoph Wurst <christoph@winzerhof-wurst.at>"]
 [dependencies]
 fern = "0.5.5"
 futures = "0.1"
+futures-state-stream = "*"
 gotham = "0.2"
+gotham-middleware-postgres = { git = "https://github.com/ChristophWurst/gotham-middleware-postgres" }
 gotham-rest = { git = "https://github.com/ChristophWurst/gotham-rest.git" }
 gotham_serde_json_body_parser = "0.2.0"
+hyper = "0.11"
 log = "0.4"
+serde = "1.0"
+serde_derive = "1.0"
+tokio-core = "*"
