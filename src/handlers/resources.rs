@@ -31,7 +31,10 @@ impl Resource for Rooms {
                         })
                         .collect()
                     })
-                    .and_then(|(res, _)| Ok(res))
+                    .and_then(|(res, _)| {
+                        debug!("loaded {} rooms", res.len());
+                        Ok(res)
+                    })
                     .map_err(|(err, _)| err);
 
                 Box::new(f)
@@ -44,8 +47,9 @@ impl Resource for Rooms {
                 Ok((state, res))
             }
             Err(err) => {
+                error!("Could not load rooms: {}", err);
                 let res =
-                    create_json_response(&state, StatusCode::InternalServerError, &0).unwrap();
+                    create_json_response(&state, StatusCode::InternalServerError, &"").unwrap();
                 Ok((state, res))
             }
         });

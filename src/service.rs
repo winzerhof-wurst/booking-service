@@ -26,6 +26,7 @@ impl BookingWebService {
     fn set_logging(&self) {
         fern::Dispatch::new()
             .level(LevelFilter::Error)
+            .level_for("booking_service", LevelFilter::Debug)
             .level_for("gotham", log::LevelFilter::Info)
             .chain(io::stdout())
             .format(|out, message, record| {
